@@ -6,6 +6,8 @@
 package Model;
 
 import Persistencia.Banco;
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.ResultSet;
 
 /**
@@ -44,9 +46,9 @@ public class Produto {
         this.getBanco().desconectarDoBanco();
     }
     
-    public void adicionarProduto(String nome, int idFornecedor, float preco, float quantidade, String tipo, String descricao){
+    public void adicionarProduto(String nome, int idFornecedor, float preco, float quantidade, String tipo, String descricao,FileInputStream fis){
         this.getBanco().conectarAoBanco();
-        String query = "INSERT INTO produto (nome, idFornecedor, valorUnit, quantidade, entrada, tipo, descricao) VALUES ('"+nome+"',"+idFornecedor+","+preco+","+quantidade+",NOW(),'"+tipo+"','"+descricao+"');";
+        String query = "INSERT INTO produto (nome, idFornecedor, valorUnit, quantidade, entrada, tipo, descricao, imagem) VALUES ('"+nome+"',"+idFornecedor+","+preco+","+quantidade+",NOW(),'"+tipo+"','"+descricao+"','"+fis+"');";
         this.getBanco().query(query);
         this.getBanco().desconectarDoBanco();
     }

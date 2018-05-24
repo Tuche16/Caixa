@@ -358,40 +358,35 @@
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="btAddProduto" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="1" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="102" attributes="0">
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Group type="102" alignment="0" attributes="0">
-                                                                  <Component id="jLabel5" min="-2" pref="196" max="-2" attributes="0"/>
-                                                                  <EmptySpace max="32767" attributes="0"/>
-                                                                  <Component id="btImgAdd" min="-2" max="-2" attributes="0"/>
-                                                              </Group>
-                                                              <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
-                                                          </Group>
-                                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" attributes="0">
-                                                          <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                          <Component id="campoCodFornecedor" min="-2" max="-2" attributes="0"/>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="jLabel5" min="-2" pref="196" max="-2" attributes="0"/>
                                                           <EmptySpace max="32767" attributes="0"/>
+                                                          <Component id="btImgAdd" min="-2" max="-2" attributes="0"/>
                                                       </Group>
+                                                      <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
                                                   </Group>
+                                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                          <Component id="campoCodFornecedor" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
                                                       <Group type="102" attributes="0">
-                                                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                                                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                                                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                           <Component id="campoNomeAdd" min="-2" pref="284" max="-2" attributes="0"/>
                                                       </Group>
                                                       <Group type="102" alignment="0" attributes="0">
-                                                          <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+                                                          <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                                                           <Group type="103" groupAlignment="1" attributes="0">
                                                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -424,7 +419,7 @@
                       <Group type="102" attributes="0">
                           <Component id="jLabel4" min="-2" pref="32" max="-2" attributes="0"/>
                           <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="campoNomeAdd" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -458,7 +453,7 @@
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Component id="jScrollPane2" min="-2" pref="154" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="lbImagemAdd" max="32767" attributes="0"/>
+                              <Component id="lbImagemAdd" min="-2" pref="370" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -1102,8 +1097,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lbImgPsq" max="32767" attributes="0"/>
-                              <Component id="jScrollPane1" pref="304" max="32767" attributes="0"/>
+                              <Component id="lbImgPsq" min="-2" pref="305" max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -1220,6 +1215,9 @@
                           <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbProdutoMouseClicked"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

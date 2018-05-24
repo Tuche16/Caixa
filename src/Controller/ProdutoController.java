@@ -5,6 +5,7 @@
  */
 package Controller;
 import Model.Produto;
+import java.io.FileInputStream;
 import java.sql.ResultSet;
 /**
  *
@@ -36,8 +37,8 @@ public class ProdutoController {
         this.getProduto().removerProduto(codigo);
     }
     
-    public void adicionarProduto(String nome,int idFornecedor, float preco, float quantidade, String tipo, String descricao){
-        this.getProduto().adicionarProduto(nome, idFornecedor, preco, quantidade, tipo, descricao);
+    public void adicionarProduto(String nome,int idFornecedor, float preco, float quantidade, String tipo, String descricao,FileInputStream fis){
+        this.getProduto().adicionarProduto(nome, idFornecedor, preco, quantidade, tipo, descricao,fis);
     }
     
     public ResultSet listarProdutos(){

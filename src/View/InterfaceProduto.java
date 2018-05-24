@@ -7,15 +7,33 @@ package View;
 
 import Controller.ProdutoController;
 import Controller.FornecedorController;
+import java.awt.Graphics2D;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,6 +51,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
     private String nomeAntigo,entradaAntigo, tipoAntigo, descricaoAntigo;
     private int codigoAntigo;
     private float precoAntigo,quantidadeAntigo;
+    private File file;
     /**
      * Creates new form InterfaceProduto
      */
@@ -369,32 +388,29 @@ public class InterfaceProduto extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btAddProduto))
                             .addGroup(painelAddProdutoLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
                                 .addGroup(painelAddProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(painelAddProdutoLayout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
                                         .addGroup(painelAddProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(painelAddProdutoLayout.createSequentialGroup()
-                                                .addGroup(painelAddProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(painelAddProdutoLayout.createSequentialGroup()
-                                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(btImgAdd))
-                                                    .addComponent(jScrollPane2))
-                                                .addGap(10, 10, 10))
+                                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btImgAdd))
+                                            .addComponent(jScrollPane2))
+                                        .addGap(10, 10, 10))
+                                    .addGroup(painelAddProdutoLayout.createSequentialGroup()
+                                        .addGroup(painelAddProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(painelAddProdutoLayout.createSequentialGroup()
                                                 .addComponent(jLabel12)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(campoCodFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                                    .addGroup(painelAddProdutoLayout.createSequentialGroup()
-                                        .addGroup(painelAddProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(campoCodFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(painelAddProdutoLayout.createSequentialGroup()
-                                                .addGap(33, 33, 33)
+                                                .addGap(21, 21, 21)
                                                 .addComponent(jLabel1)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(campoNomeAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(painelAddProdutoLayout.createSequentialGroup()
-                                                .addGap(63, 63, 63)
+                                                .addGap(51, 51, 51)
                                                 .addGroup(painelAddProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                     .addComponent(jLabel3)
                                                     .addComponent(jLabel2))
@@ -415,7 +431,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
             .addGroup(painelAddProdutoLayout.createSequentialGroup()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addGroup(painelAddProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelAddProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(painelAddProdutoLayout.createSequentialGroup()
                         .addGroup(painelAddProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(campoNomeAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -442,7 +458,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
                             .addComponent(btImgAdd))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbImagemAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lbImagemAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelAddProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btLimparAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -729,6 +745,11 @@ public class InterfaceProduto extends javax.swing.JFrame {
             }
         });
         tbProduto.getTableHeader().setReorderingAllowed(false);
+        tbProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbProdutoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbProduto);
 
         comboFormaPesquisa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos produtos", "Nome do produto", "Código do produto" }));
@@ -786,8 +807,8 @@ public class InterfaceProduto extends javax.swing.JFrame {
                     .addComponent(btBuscarProduto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelPsqProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbImgPsq, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE))
+                    .addComponent(lbImgPsq, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -816,7 +837,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
             .addGroup(painelCamadaProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(painelAltProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(painelCamadaProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(painelPsqProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE))
+                .addComponent(painelPsqProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 457, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout painelProdutoLayout = new javax.swing.GroupLayout(painelProduto);
@@ -1013,7 +1034,23 @@ public class InterfaceProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_radioPesoMouseClicked
 
     private void btImgAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImgAddActionPerformed
-        
+        JFileChooser filechooser =new JFileChooser();
+        filechooser.setDialogTitle("Escolha a imagem");
+        filechooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+ 
+        int returnval=filechooser.showOpenDialog(this);
+        if(returnval==JFileChooser.APPROVE_OPTION)
+        {
+            file = filechooser.getSelectedFile();
+            BufferedImage bi;
+            try
+            {   
+                bi=ImageIO.read(file);
+                this.lbImagemAdd.setIcon(new ImageIcon(bi.getScaledInstance(this.lbImagemAdd.getWidth(), this.lbImagemAdd.getHeight(),Image.SCALE_SMOOTH)));
+            }
+            catch(IOException e){}
+            this.pack();
+        }
     }//GEN-LAST:event_btImgAddActionPerformed
 
     private void btLimparAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparAddActionPerformed
@@ -1026,7 +1063,7 @@ public class InterfaceProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btLimparAddActionPerformed
 
     private void btAddProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddProdutoActionPerformed
-        try{
+        try{ 
             String tipo;
             if(this.radioPeso.isSelected()){
                 tipo="peso";
@@ -1035,8 +1072,15 @@ public class InterfaceProduto extends javax.swing.JFrame {
                 tipo="und";
             }
             if((Integer)this.campoCodFornecedor.getValue()>0){
-                this.produtoController.adicionarProduto(this.campoNomeAdd.getText(),(Integer)this.campoCodFornecedor.getValue(), Float.parseFloat(this.campoPrecoAdd.getText()), Float.parseFloat(this.campoQuantidadeAdd.getText()), tipo, this.campoDescricaoAdd.getText());
-                JOptionPane.showMessageDialog(null,"Produto adicionado com sucesso!","ATENÇÃO",JOptionPane.INFORMATION_MESSAGE);
+                if(this.file.length()==0){
+                    this.produtoController.adicionarProduto(this.campoNomeAdd.getText(),(Integer)this.campoCodFornecedor.getValue(), Float.parseFloat(this.campoPrecoAdd.getText()), Float.parseFloat(this.campoQuantidadeAdd.getText()), tipo, this.campoDescricaoAdd.getText(),null);
+                    JOptionPane.showMessageDialog(null,"Produto adicionado com sucesso!","ATENÇÃO",JOptionPane.INFORMATION_MESSAGE);
+                }
+                else{
+                    FileInputStream fis=new FileInputStream(file);
+                    this.produtoController.adicionarProduto(this.campoNomeAdd.getText(),(Integer)this.campoCodFornecedor.getValue(), Float.parseFloat(this.campoPrecoAdd.getText()), Float.parseFloat(this.campoQuantidadeAdd.getText()), tipo, this.campoDescricaoAdd.getText(),fis);
+                    JOptionPane.showMessageDialog(null,"Produto adicionado com sucesso!","ATENÇÃO",JOptionPane.INFORMATION_MESSAGE);
+                }
             }
             else{
                 JOptionPane.showMessageDialog(null,"Informe o código do fornecedor!","ATENÇÃO",JOptionPane.INFORMATION_MESSAGE);
@@ -1044,6 +1088,8 @@ public class InterfaceProduto extends javax.swing.JFrame {
         }
         catch(HeadlessException | NumberFormatException e){
             JOptionPane.showMessageDialog(null,"Preencha os campos corretamente!","ATENÇÃO",JOptionPane.INFORMATION_MESSAGE);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(InterfaceProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
         limparCamposAdd();
     }//GEN-LAST:event_btAddProdutoActionPerformed
@@ -1485,6 +1531,34 @@ public class InterfaceProduto extends javax.swing.JFrame {
         else if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_PERIOD)  || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)))
             evt.consume();
     }//GEN-LAST:event_campoQuantidadeAddKeyTyped
+
+    static public BufferedImage linearResizeBi(BufferedImage origin, int width, int height) {
+        BufferedImage resizedImage = new BufferedImage(width, height ,BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = resizedImage.createGraphics();
+        float xScale = (float)width / origin.getWidth();
+        float yScale = (float)height / origin.getHeight();
+        AffineTransform at = AffineTransform.getScaleInstance(xScale,yScale);
+        g.drawRenderedImage(origin,at);
+        g.dispose();
+        return resizedImage;
+    }
+    
+    private void tbProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProdutoMouseClicked
+        if(this.tbProduto.getSelectedRowCount()>=1){
+            rst=this.produtoController.buscarProduto("null", (Integer)this.tbProduto.getValueAt(this.tbProduto.getSelectedRow(),0));
+            
+            try{
+                System.out.println(rst.getString("nome"));
+                BufferedImage im = ImageIO.read(rst.getBinaryStream("imagem"));
+                this.lbImgPsq.setIcon(new ImageIcon(im));
+            }
+            catch(SQLException e){
+                System.out.println(e);
+            } catch (IOException ex) {
+                Logger.getLogger(InterfaceProduto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_tbProdutoMouseClicked
 
     private void limparCamposAdd(){
         this.campoNomeAdd.setText("");

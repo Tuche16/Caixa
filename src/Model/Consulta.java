@@ -32,7 +32,7 @@ public class Consulta {
     
     public ResultSet logar(String usuarioInserido,String senhaInserida){ 
         this.getBanco().conectarAoBanco();
-        this.getBanco().setRst(getBanco().consulta("SELECT usuario,senha,nomeCompleto,permissao FROM usuario WHERE usuario='"+usuarioInserido+"' AND senha='"+senhaInserida+"';"));
+        this.getBanco().setRst(getBanco().consulta("SELECT usuario,senha,nomeCompleto,permissao FROM usuario WHERE BINARY usuario='"+usuarioInserido+"' AND senha='"+senhaInserida+"';"));
         try{
             this.getBanco().getRst().last();
             if(this.getBanco().getRst().getRow()>=0){
